@@ -50,13 +50,17 @@ class Encoder(nn.Module):
 
 class Bottleneck(nn.Module):
 
-    def __init__(self):
+    def __init__(self, dropout=0.5):
         super().__init__()
 
         self.conv = DoubleConv(512, 1024)
+        self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, x):
-        return self.conv(x)
+        x = self.conv(x)
+        x = self.dropout(x)
+
+        return x
 
 def center_crop(encoder_feature, target_feature):
 
