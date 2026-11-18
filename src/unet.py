@@ -76,3 +76,35 @@ def center_crop(encoder_feature, target_feature):
         top:top + target_h,
         left:left + target_w
     ]
+
+class DecoderBlock(nn.Module):
+
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+
+        self.up = nn.ConvTranspose2d(
+            in_channels,
+            out_channels,
+            kernel_size=2,
+            stride=2
+        )
+
+        self.conv = DoubleConv(
+            out_channels * 2,
+            out_channels
+        )
+
+    def forward(self, x, skip):
+
+        x = self.up(x)
+
+        skip = center_crop(skip, x)
+
+        x = torch.cat([skip, x], dim=1)
+
+        x = self.conv(x)
+
+        return x
+
+
+
