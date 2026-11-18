@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Dataset
+data/
+
+# Model weights
+checkpoints/
+*.pth
+*.pt
+
+# IDE
+.vscode/
+.idea/
