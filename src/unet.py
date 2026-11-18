@@ -120,5 +120,42 @@ class OutputLayer(nn.Module):
     def forward(self, x):
         return self.conv(x)
 
+class UNet(nn.Module):
 
+    def __init__(self, in_channels=1, num_classes=2):
+        super().__init__()
+
+        # Encoder
+        self.encoder = Encoder(in_channels)
+
+        # Bottleneck
+        self.bottleneck = Bottleneck()
+
+        # Decoder
+        self.dec4 = DecoderBlock(1024, 512)
+        self.dec3 = DecoderBlock(512, 256)
+        self.dec2 = DecoderBlock(256, 128)
+        self.dec1 = DecoderBlock(128, 64)
+
+        # Output layer
+        self.output = OutputLayer(64, num_classes)
+
+    def forward(self, x):
+
+        # Contracting path
+        x, (e1, e2, e3, e4) = self.encoder(x)
+
+        # Bottleneck
+        x = self.bottleneck(x)
+
+        # Expanding path
+        x = self.dec4(x, e4)
+        x = self.dec3(x, e3)
+        x = self.dec2(x, e2)
+        x = self.dec1(x, e1)
+
+        # Segmentation logits
+        x = self.output(x)
+
+        return x
 
