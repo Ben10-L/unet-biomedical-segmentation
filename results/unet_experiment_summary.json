@@ -1,0 +1,28 @@
+{
+  "seed": 42,
+  "device": "mps",
+  "epochs": 5,
+  "best_epoch": 4,
+  "training_slices": 24,
+  "validation_slices": 6,
+  "test_slices": 30,
+  "training_patch": 316,
+  "target_patch": 132,
+  "inference_patch": 444,
+  "learning_rate": 0.001,
+  "momentum": 0.99,
+  "patches_per_slice": 2,
+  "class_weights": [
+    0.6455144286155701,
+    2.2180426120758057
+  ],
+  "best_validation_dice": 0.6231974230564511,
+  "test_metrics": {
+    "loss": 0.6163473949828078,
+    "dice": 0.6231026781825847,
+    "iou": 0.45254113600869633,
+    "background_iou": 0.7512376237623762,
+    "mean_iou": 0.6018893798855363,
+    "pixel_accuracy": 0.7936664581298828
+  }
+}
