@@ -106,5 +106,19 @@ class DecoderBlock(nn.Module):
 
         return x
 
+class OutputLayer(nn.Module):
+
+    def __init__(self, in_channels=64, num_classes=2):
+        super().__init__()
+
+        self.conv = nn.Conv2d(
+            in_channels,
+            num_classes,
+            kernel_size=1
+        )
+
+    def forward(self, x):
+        return self.conv(x)
+
 
 
